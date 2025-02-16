@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Migrant's Zajal</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+        }
+
+        .question {
+            margin-top: 20px;
+            font-size: 2em;
+            text-align: center;
+        }
+
+        .text-container {
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            margin-top: 20px;
+        }
+
+        .line {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .translation {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            visibility: hidden;
+            text-align: left;
+            margin-left: auto;
+            margin-right: 10%;
+        }
+
+        .circle-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            background-color: black;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        /* Added triangle link style */
+        .triangle-link {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 30px;
+            height: 30px;
+            background-color: black;
+            /* Creates an equilateral triangle pointing upwards */
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="question">?Where is home for you</div>
+
+    <div class="text-container">
+        <div class="line" onclick="toggleLine(0)">تركت الوطن عتبات الماضي يضيع</div>
+        <div class="translation" id="line-0">I left my country on the footsteps of the past</div>
+        <div class="line" onclick="toggleLine(1)">ولوني صار لون الغريب</div>
+        <div class="translation" id="line-1">My colors changed to match the foreign land</div>
+        <div class="line" onclick="toggleLine(2)">نفيت هويتي صرت متل الجميع</div>
+        <div class="translation" id="line-2">I exiled my identity, became everyone else</div>
+        <div class="line" onclick="toggleLine(3)">بس قلبي كبر صار أدفى من القريب</div>
+        <div class="translation" id="line-3">But the heart, reached, grew warmer as I grew larger</div>
+    </div>
+
+    <div class="circle-link" onclick="openNewWindow()"></div>
+    <div class="triangle-link" onclick="openTriangleWindow()"></div>
+
+    <script>
+        function toggleLine(index) {
+            const line = document.getElementById(`line-${index}`);
+            if (line.style.visibility === 'visible') {
+                line.style.visibility = 'hidden';
+            } else {
+                line.style.visibility = 'visible';
+            }
+        }
+
+        function openNewWindow() {
+            window.open('2-border.html', '_blank', 'width=1000,height=800,left=50,top=150,toolbar=no,scrollbars=no,resizable=yes');
+        }
+        
+        function openTriangleWindow() {
+            window.open('3-erosion.html', '_blank', 'width=600,height=400,left=50,top=100,toolbar=no,scrollbars=no,resizable=yes');
+        }
+    </script>
+</body>
+</html>

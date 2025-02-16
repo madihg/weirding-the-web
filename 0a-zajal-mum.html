@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mum's zajal</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+        }
+    
+        .question {
+            margin-top: 20px;
+            font-size: 2em;
+            text-align: center;
+            cursor: pointer;
+        }
+    
+        .text-container {
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            margin-top: 20px;
+        }
+    
+        .line {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+    
+        .translation {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            text-align: right;
+            margin-left: 10%;
+            margin-right: auto;
+            color: black;
+        }
+    
+        .strikethrough {
+            text-decoration: line-through;
+            text-decoration-color: red;
+            text-decoration-thickness: 2px;
+        }
+    
+        .button-container {
+            margin-top: 10px;
+            text-align: right;
+            font-size: 2em;
+        }
+    
+        button {
+            font-size: 1em; /* Add this to make the button text 2em */
+            font-family: "Times New Roman", Times, serif;
+        }
+    
+        .light-grey {
+            color: #A9A9A9;
+        }
+
+        .emoji {
+            font-size: 1em; /* Matches the button text size */
+        }
+    </style>
+</head>
+<body>
+    <div class="question" onclick="revealNextSection(0)">On August 4th, I asked my mother, Josephine</div>
+    <div id="section-1" class="question" style="display: none;" onclick="revealNextSection(1)">to collaborate on the below</div>
+    <div id="section-2" class="question" style="display: none;" onclick="revealButton()">...She made some edits</div>
+
+    <div class="text-container">
+        <div class="line" id="arabic-0">تركت الوطن عتبات الماضي</div>
+        <div class="translation" id="english-0">I left my country on the footsteps of the past</div>
+        <div class="line" id="arabic-1">وغنيت الغربي بلحن جدادي</div>
+        <div class="translation" id="english-1">I sang the foreign song as the hymn of my forefathers</div>
+        <div class="line" id="arabic-2">نفيت هويتي و بكيت عتابي</div>
+        <div class="translation" id="english-2">I exiled my identity and cried my sorrow</div>
+        <div class="line" id="arabic-3">بس قلبي كبر فيكون يا صحابي</div>
+        <div class="translation" id="english-3">But my heart grew with you, my friends</div>
+    </div>
+
+    <div id="button-container" class="button-container" style="display: none;">
+        <div>
+            <span id="sound-emoji" class="emoji"></span>
+            <button onclick="dal3onaAction()">Dal3ona</button>
+            &nbsp;She recorded her version
+        </div>
+    </div>
+    <div id="mother-performance" class="button-container" style="display: none;" onclick="revealTodayDid()">my mother always wanted to perform on stage</div>
+    <div id="today-did" class="button-container" style="display: none;">❤️ Today she did</div>
+
+    <script>
+        function revealNextSection(sectionIndex) {
+            const nextSection = document.getElementById(`section-${sectionIndex + 1}`);
+            if (nextSection) {
+                nextSection.style.display = 'block';
+            }
+        }
+
+        function revealButton() {
+            setTimeout(() => {
+                const buttonContainer = document.getElementById('button-container');
+                if (buttonContainer) {
+                    buttonContainer.style.display = 'block';
+                }
+            }, 0);
+            replaceText();
+        }
+
+        function dal3onaAction() {
+            // Set a delay of 5 seconds to reveal the next text (CHANGE DURATION HERE)
+            setTimeout(() => {
+                const motherPerformance = document.getElementById('mother-performance');
+                if (motherPerformance) {
+                    motherPerformance.style.display = 'block';
+                }
+            }, 5000); // 5000 milliseconds = 5 seconds
+
+            // Show the sound emoji
+            const soundEmoji = document.getElementById('sound-emoji');
+            soundEmoji.textContent = '🔊';
+        }
+
+        function revealTodayDid() {
+            const todayDid = document.getElementById('today-did');
+            if (todayDid) {
+                todayDid.style.display = 'block';
+            }
+        }
+
+        function replaceText() {
+            // Hide Arabic lines
+            for (let i = 0; i < 4; i++) {
+                document.getElementById(`arabic-${i}`).style.display = 'none';
+            }
+
+            // Replace English lines with strikethrough for specific parts and new text beneath
+            const oldTexts = [
+                "I left my country on the footsteps of the past",
+                "My colors changed to match the foreign land",
+                "I exiled my identity, became everyone else",
+                "But my heart, reached, grew warmer as I grew larger"
+            ];
+
+            const newTexts = [
+                "I left my country on the footsteps of the past",
+                "I sang the foreign song as the hymn of my forefathers",
+                "I exiled my identity and cried my sorrow",
+                "But my heart grew with you, my friends"
+            ];
+
+            oldTexts.forEach((oldText, index) => {
+                const englishLine = document.getElementById(`english-${index}`);
+                let strikethroughHTML = oldText;
+
+                // Specific phrases to strike through
+                const phrasesToStrike = [
+                    "My colors changed to match the foreign land",
+                    "became everyone else",
+                    "reached, grew warmer as I grew larger"
+                ];
+
+                phrasesToStrike.forEach(phrase => {
+                    if (strikethroughHTML.includes(phrase)) {
+                        strikethroughHTML = strikethroughHTML.replace(
+                            phrase,
+                            `<span class='strikethrough'>${phrase}</span>`
+                        );
+                    }
+                });
+
+                englishLine.innerHTML = strikethroughHTML;
+                englishLine.classList.add('light-grey');
+
+                setTimeout(() => {
+                    const newElement = document.createElement('div');
+                    newElement.className = 'translation';
+                    newElement.textContent = newTexts[index];
+                    englishLine.parentNode.insertBefore(newElement, englishLine.nextSibling);
+                }, index * 1000);
+            });
+        }
+    </script>
+</body>
+</html>
